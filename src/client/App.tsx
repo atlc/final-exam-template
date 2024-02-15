@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { GET } from "./services/fetcher";
 
 interface AppProps {}
 
 const App = (props: AppProps) => {
-	const [data, setData] = useState('');
+    const [data, setBooks] = useState("");
 
-	useEffect(() => {
-		fetch('http://localhost:3000/api/hello')
-			.then(res => res.json())
-			.then(data => setData(data.message))
-			.catch(e => console.log('[fetch erorr]', e));
-	}, []);
+    useEffect(() => {
+        GET("/api/books").then(setBooks);
+    }, []);
 
-	return (
-		<div className="mx-auto mt-5 w-25">
-			<div className="alert alert-info text-center">Hello {data}</div>
-		</div>
-	);
+    return (
+        <div className="mx-auto mt-5 w-25">
+            <div className="alert alert-info text-center">Hello {data}</div>
+        </div>
+    );
 };
 
 export default App;
